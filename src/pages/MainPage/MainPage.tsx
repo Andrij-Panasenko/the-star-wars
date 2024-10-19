@@ -1,12 +1,11 @@
 import { useSelector } from 'react-redux';
 import { selectCharacters } from '../../redux/selectors';
 import CharacterCard from 'components/CharacterCard/CharacterCard';
-import style from './MainPage.module.css'
+import style from './MainPage.module.css';
 
 export default function MainPage() {
     const characters = useSelector(selectCharacters);
     const { results } = characters;
-    console.log('🚀 ~ MainPage ~ results:', results);
     return (
         <>
             <ul className={style.characters_list}>
