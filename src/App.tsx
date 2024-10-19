@@ -3,8 +3,6 @@ import { lazy, useEffect } from 'react';
 import { fetchAllCharacters } from './redux/operations';
 import { Route, Routes } from 'react-router-dom';
 import SharedLayout from 'components/SharedLayout/SharedLayout';
-// import MainPage from 'pages/MainPage/MainPage';
-// import CharacterPage from 'pages/CharacterPage/CharacterPage';
 
 const MainPage = lazy(() => import('pages/MainPage/MainPage'));
 const CharacterPage = lazy(() => import('pages/CharacterPage/CharacterPage'));
