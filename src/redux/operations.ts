@@ -31,3 +31,31 @@ export const fetchCharacterById = createAsyncThunk(
     }
   }
 )
+
+// request to get details about starship by char id
+export const fetchStarshipDetailByCharacterId = createAsyncThunk(
+  'starship/fetch',
+  async (id: number, thunkAPI) => {
+    try {
+      const response = await axios.get(`/starships/${id}`)
+      return response.data
+    } catch (error) {
+      const typedError = error as AxiosError;
+      return thunkAPI.rejectWithValue(typedError.message)
+    }
+  }
+)
+
+//request to get film details by char id
+export const fetchFilmDetailByCharacterId = createAsyncThunk(
+  'films/fetch',
+  async (id: number, thunkAPI) => {
+    try {
+      const response = await axios.get(`/films/${id}`)
+      return response.data
+    } catch (error) {
+      const typedError = error as AxiosError;
+      return thunkAPI.rejectWithValue(typedError.message)
+    }
+  }
+)
