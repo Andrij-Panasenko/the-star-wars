@@ -1,20 +1,28 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { fetchAllCharacters } from "./operations";
+import { Character } from '../types/types'
 
+// characters state description
 export interface CharactersState {
   error: string | null,
   isLoading: boolean,
-  characters: ICharacters[]
-}
-
-export interface ICharacters {
-  name: string,
+  data: {
+    count: number;
+    next: string | null;
+    previous: string | null;
+    results: Character[]
+  }
 }
 
 const initialState: CharactersState = {
   error: null,
   isLoading: false,
-  characters: []
+  data: {
+    count: 0,
+    next: null,
+    previous: null,
+    results: [],
+  }
 }
 
 export const characterSlice = createSlice({
@@ -27,12 +35,13 @@ export const characterSlice = createSlice({
     state.isLoading = true;
     state.error = null;
     })
-    // Set data in state
-    .addCase(fetchAllCharacters.fulfilled, (state, actiion: PayloadAction<ICharacters[]>) => {
+    // Set data in state, unset loading and error
+    .addCase(fetchAllCharacters.fulfilled, (state, actiion: PayloadAction<CharactersState['data']>) => {
       state.isLoading = false;
       state.error = null;
-      state.characters = actiion.payload;
+      state.data = actiion.payload;
     })
+    // unset loading, set error
     .addCase(fetchAllCharacters.rejected, (state, action) => {
       state.isLoading = false;
       state.error = action.error.message || 'Failed to fetch characters'
