@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { fetchAllCharacters, fetchCharacterById } from "./operations";
-import { Character } from '../types/types'
+import { fetchAllCharacters, fetchCharacterById, fetchStarshipDetailById, fetchFilmDetailById } from "./operations";
+import { Character, Film, Starship } from '../types/types'
 
 // characters state description
 export interface CharactersState {
@@ -12,7 +12,9 @@ export interface CharactersState {
     previous: string | null;
     results: Character[]
   }
-  characterDetails: Character[]
+  characterDetails: Character | null,
+  starshipDetails: Starship[],
+  filmDetails: Film[]
 }
 
 const initialState: CharactersState = {
@@ -24,13 +26,20 @@ const initialState: CharactersState = {
     previous: null,
     results: [],
   },
-  characterDetails:[]
+  characterDetails: null,
+  starshipDetails: [],
+  filmDetails: [],
 }
 
 export const characterSlice = createSlice({
   name: 'characters',
   initialState,
-  reducers: {},
+  reducers: {
+    clearFilmsAndStarshipsDetails: (state) => {
+      state.filmDetails = [];
+      state.starshipDetails = [];
+    },
+  },
   extraReducers: builder => builder
     //request for all characters. Set loading
     .addCase(fetchAllCharacters.pending, (state) => {
@@ -60,7 +69,36 @@ export const characterSlice = createSlice({
     }).addCase(fetchCharacterById.rejected, (state, action) => {
       state.isLoading = false;
       state.error = action.error.message || 'Failed to fetch selected character';
-     })
+    })
+  // request to get starship by id
+    .addCase(fetchStarshipDetailById.pending, (state) => {
+      state.isLoading = true;
+      state.error = null;
+    })
+    .addCase(fetchStarshipDetailById.fulfilled, (state, action) => {
+      state.isLoading = false;
+      state.error = null;
+      state.starshipDetails = [...state.starshipDetails, action.payload]
+    })
+    .addCase(fetchStarshipDetailById.rejected, (state , action) => {
+      state.isLoading = false;
+      state.error = action.error.message || 'Failed to fetch selected starship details';
+    })
+  // request to get film details by id
+    .addCase(fetchFilmDetailById.pending, (state) => {
+      state.isLoading = true;
+      state.error = null;
+    })
+    .addCase(fetchFilmDetailById.fulfilled, (state, action) => {
+      state.isLoading = false;
+      state.error = null;
+      state.filmDetails = [...state.filmDetails, action.payload];
+    })
+    .addCase(fetchFilmDetailById.rejected, (state, action) => {
+      state.isLoading = false;
+      state.error = action.error.message || 'Failed to fetch selected film details';
+    })
 })
 
 export const characterReducer = characterSlice.reducer;
+export const { clearFilmsAndStarshipsDetails } = characterSlice.actions

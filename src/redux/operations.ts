@@ -33,7 +33,7 @@ export const fetchCharacterById = createAsyncThunk(
 )
 
 // request to get details about starship by char id
-export const fetchStarshipDetailByCharacterId = createAsyncThunk(
+export const fetchStarshipDetailById = createAsyncThunk(
   'starship/fetch',
   async (id: number, thunkAPI) => {
     try {
@@ -47,7 +47,7 @@ export const fetchStarshipDetailByCharacterId = createAsyncThunk(
 )
 
 //request to get film details by char id
-export const fetchFilmDetailByCharacterId = createAsyncThunk(
+export const fetchFilmDetailById = createAsyncThunk(
   'films/fetch',
   async (id: number, thunkAPI) => {
     try {
