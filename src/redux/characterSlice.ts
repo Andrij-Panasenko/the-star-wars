@@ -11,7 +11,8 @@ export interface CharactersState {
     next: string | null;
     previous: string | null;
     results: Character[]
-  }
+  },
+  page: number
   characterDetails: Character | null,
   starshipDetails: Starship[],
   filmDetails: Film[]
@@ -26,6 +27,7 @@ const initialState: CharactersState = {
     previous: null,
     results: [],
   },
+  page: 1, 
   characterDetails: null,
   starshipDetails: [],
   filmDetails: [],
@@ -39,6 +41,9 @@ export const characterSlice = createSlice({
       state.filmDetails = [];
       state.starshipDetails = [];
     },
+    setPage: (state, action) => {
+      state.page = action.payload
+    }
   },
   extraReducers: builder => builder
     //request for all characters. Set loading
@@ -100,4 +105,4 @@ export const characterSlice = createSlice({
 })
 
 export const characterReducer = characterSlice.reducer;
-export const { clearFilmsAndStarshipsDetails } = characterSlice.actions
+export const { clearFilmsAndStarshipsDetails, setPage } = characterSlice.actions

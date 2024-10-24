@@ -1,22 +1,24 @@
 import { useSelector } from 'react-redux';
-import { selectCharacters } from '../../redux/selectors';
+import { selectCharacters, selectPage } from '../../redux/selectors';
 import CharacterCard from 'components/CharacterCard/CharacterCard';
 import style from './MainPage.module.css';
 import { Character } from 'types/types';
 import { useEffect, useState } from 'react';
 import { useAppDispatch } from '../../hooks/useAppDispatch';
 import { fetchAllCharacters } from '../../redux/operations';
+import { setPage } from '../../redux/characterSlice';
 
 export default function MainPage() {
     const dispatch = useAppDispatch();
     const characters = useSelector(selectCharacters);
+    const page = useSelector(selectPage);
 
     // results - array of characters
     // next - shows whether or not there is a link to the next page to download character data. String or null
     // previous - shows whether or not there is a link to the previous page to download character data. String or null
     const { results, next, previous } = characters;
 
-    const [page, setPage] = useState<number>(1);
+    // const [page, setPage] = useState<number>(1);
 
     useEffect(() => {
         dispatch(fetchAllCharacters(page));
@@ -34,7 +36,7 @@ export default function MainPage() {
                     <button
                         type="button"
                         className={style.load_btn}
-                        onClick={() => setPage((prevPage) => prevPage - 1)}
+                        onClick={() => dispatch(setPage(page - 1))}
                     >
                         <span className={style.load_btn__text}>
                             Previous page
@@ -45,7 +47,7 @@ export default function MainPage() {
                     <button
                         type="button"
                         className={style.load_btn}
-                        onClick={() => setPage((prevPage) => prevPage + 1)}
+                        onClick={() => dispatch(setPage(page + 1))}
                     >
                         <span className={style.load_btn__text}>Next page</span>
                     </button>
