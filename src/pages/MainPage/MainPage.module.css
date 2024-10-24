@@ -1,9 +1,13 @@
 .characters_list {
-  outline: 1px solid red;
   text-align: center;
   width: 100%;
 
   margin-bottom: 25px;
+}
+
+.load_btn__wrapper {
+  display: flex;
+  justify-content: space-between;
 }
 
 .load_btn {

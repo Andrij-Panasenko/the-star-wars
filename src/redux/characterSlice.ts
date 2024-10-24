@@ -52,7 +52,6 @@ export const characterSlice = createSlice({
       state.error = null;
       state.data = actiion.payload;
     })
-    // unset loading, set error
     .addCase(fetchAllCharacters.rejected, (state, action) => {
       state.isLoading = false;
       state.error = action.error.message || 'Failed to fetch characters'
@@ -70,7 +69,7 @@ export const characterSlice = createSlice({
       state.isLoading = false;
       state.error = action.error.message || 'Failed to fetch selected character';
     })
-  // request to get starship by id
+  // handling request to get starship by id
     .addCase(fetchStarshipDetailById.pending, (state) => {
       state.isLoading = true;
       state.error = null;
@@ -84,7 +83,7 @@ export const characterSlice = createSlice({
       state.isLoading = false;
       state.error = action.error.message || 'Failed to fetch selected starship details';
     })
-  // request to get film details by id
+  // handling request to get film details by id
     .addCase(fetchFilmDetailById.pending, (state) => {
       state.isLoading = true;
       state.error = null;

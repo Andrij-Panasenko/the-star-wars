@@ -4,7 +4,7 @@ import axios, { AxiosError } from "axios";
 axios.defaults.baseURL = 'https://sw-api.starnavi.io'
 
 // getting all characters by pages
-// 10 characters by page
+// 10 characters per page
 export const fetchAllCharacters = createAsyncThunk(
   'characters/fetch',
   async (page: number = 1, thunkAPI) => {
