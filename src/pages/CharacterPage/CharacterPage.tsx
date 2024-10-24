@@ -1,5 +1,5 @@
 import { useAppDispatch } from '../../hooks/useAppDispatch';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import {
     fetchCharacterById,
@@ -87,6 +87,7 @@ export default function CharacterPage() {
             id: `char-to-film-${film.id}`,
             source: characterNode.id,
             target: film.id.toString(),
+            label: 'film',
         };
     });
 
@@ -99,6 +100,7 @@ export default function CharacterPage() {
                     .find((film) => film.starships.includes(starship.id))
                     ?.id.toString() || '',
             target: starship.id.toString(),
+            label: 'starship',
         };
     });
 
