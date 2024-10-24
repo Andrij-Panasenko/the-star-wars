@@ -3,7 +3,7 @@ import { selectCharacters, selectPage } from '../../redux/selectors';
 import CharacterCard from 'components/CharacterCard/CharacterCard';
 import style from './MainPage.module.css';
 import { Character } from 'types/types';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useAppDispatch } from '../../hooks/useAppDispatch';
 import { fetchAllCharacters } from '../../redux/operations';
 import { setPage } from '../../redux/characterSlice';
@@ -17,8 +17,6 @@ export default function MainPage() {
     // next - shows whether or not there is a link to the next page to download character data. String or null
     // previous - shows whether or not there is a link to the previous page to download character data. String or null
     const { results, next, previous } = characters;
-
-    // const [page, setPage] = useState<number>(1);
 
     useEffect(() => {
         dispatch(fetchAllCharacters(page));
