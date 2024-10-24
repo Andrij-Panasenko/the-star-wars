@@ -12,3 +12,5 @@ export const selectFilmDetails = (state: RootState) => state.starWarsState.filmD
 //select starship details
 export const selectStarshipDetails = (state: RootState) => state.starWarsState.starshipDetails;
 
+// select booleat value isLoading
+export const selectIsLoading = (state: RootState) => state.starWarsState.isLoading;
