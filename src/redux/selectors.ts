@@ -14,5 +14,6 @@ export const selectStarshipDetails = (state: RootState) => state.starWarsState.s
 
 // select booleat value isLoading
 export const selectIsLoading = (state: RootState) => state.starWarsState.isLoading;
+
 //page selector
 export const selectPage = (state: RootState) => state.starWarsState.page;
