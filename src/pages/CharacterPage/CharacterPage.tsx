@@ -33,20 +33,17 @@ export default function CharacterPage() {
     useEffect(() => {
         const fetchData = async () => {
             // implementation of sequential query
-            try {
-                if (films.length >= 1) {
-                    for (const filmID of films) {
-                        await dispatch(fetchFilmDetailById(filmID));
-                    }
-                }
 
-                if (starships.length >= 1) {
-                    for (const starshipID of starships) {
-                        await dispatch(fetchStarshipDetailById(starshipID));
-                    }
+            if (films.length >= 1) {
+                for (const filmID of films) {
+                    await dispatch(fetchFilmDetailById(filmID));
                 }
-            } catch (error) {
-                console.log('useEffect', error);
+            }
+
+            if (starships.length >= 1) {
+                for (const starshipID of starships) {
+                    await dispatch(fetchStarshipDetailById(starshipID));
+                }
             }
         };
         fetchData();
