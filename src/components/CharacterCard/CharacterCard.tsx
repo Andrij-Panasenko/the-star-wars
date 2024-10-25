@@ -16,8 +16,16 @@ export default function CharacterCard({ characterData }: CharacterCardProps) {
         <>
             <li
                 className={style.character_item}
-                onClick={() => { dispatch(fetchCharacterById(id)); navigate(`/character/${id}`);}}
+                onClick={() => {
+                    dispatch(fetchCharacterById(id));
+                    navigate(`/character/${id}`);
+                }}
             >
+                <img
+                    src={`https://starwars-visualguide.com/assets/img/characters/${id}.jpg`}
+                    alt={name}
+                    className={style.character_img }
+                />
                 <h1>{name}</h1>
             </li>
         </>
