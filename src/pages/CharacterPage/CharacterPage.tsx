@@ -119,17 +119,3 @@ export default function CharacterPage() {
     );
 }
 
-// const node = [
-//     {
-//         id: '1', // required
-//         position: { x: 0, y: 0 }, // required
-//         data: { label: 'ekwryihnbgtovuu' }, // required
-//     },
-//     {
-//         id: '2',
-//         position: { x: 100, y: 100 },
-//         data: { label: 'nvwgeyrh8f su4oiuvn' },
-//     },
-// ];
-
-// const edges = [{ id: '1-2', source: '1', target: '2', label: 'to-the' }];
