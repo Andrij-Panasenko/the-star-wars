@@ -1,5 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios, { AxiosError } from "axios";
+import toast from "react-hot-toast";
 
 axios.defaults.baseURL = 'https://sw-api.starnavi.io'
 
@@ -12,6 +13,8 @@ export const fetchAllCharacters = createAsyncThunk(
        const response = await axios.get(`/people?page=${page}`)
     return response.data
     } catch (error) {
+      toast.error('Unable to load page. Try again later');
+
       const typedError = error as AxiosError;
       return thunkAPI.rejectWithValue(typedError.message)
     }
@@ -26,6 +29,8 @@ export const fetchCharacterById = createAsyncThunk(
       const response = await axios.get(`/people/${id}`)
       return response.data
     } catch (error) {
+      toast.error('Unable to load character details. Try again later');
+
       const typedError = error as AxiosError;
       return thunkAPI.rejectWithValue(typedError.message)
     }
@@ -40,6 +45,8 @@ export const fetchStarshipDetailById = createAsyncThunk(
       const response = await axios.get(`/starships/${id}`)
       return response.data
     } catch (error) {
+      toast.error('Unable to load starships details. Try again later');
+
       const typedError = error as AxiosError;
       return thunkAPI.rejectWithValue(typedError.message)
     }
@@ -54,6 +61,8 @@ export const fetchFilmDetailById = createAsyncThunk(
       const response = await axios.get(`/films/${id}`)
       return response.data
     } catch (error) {
+      toast.error('Unable to load films details. Try again later');
+
       const typedError = error as AxiosError;
       return thunkAPI.rejectWithValue(typedError.message)
     }
