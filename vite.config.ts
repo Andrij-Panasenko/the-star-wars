@@ -14,5 +14,5 @@ export default defineConfig({
       assets: '/src/assets'
     }
   },
-  base: '/starWars' 
+  base: '/starWars/' 
 })
