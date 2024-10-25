@@ -1,0 +1,1 @@
+import{i as s}from"./index-Q0Zbg8CA.js";const e=a=>a.starWarsState.data,r=a=>a.starWarsState.characterDetails,c=a=>a.starWarsState.filmDetails,i=a=>a.starWarsState.starshipDetails,l=a=>a.starWarsState.page,o=()=>s();export{l as a,r as b,c,i as d,e as s,o as u};
