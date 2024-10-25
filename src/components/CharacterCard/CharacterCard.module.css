@@ -1,20 +1,30 @@
 .character_item {
   padding: 15px;
   cursor: pointer;
-  transition: color 300ms cubic-bezier(0.075, 0.82, 0.165, 1);
+  transition-property: color, scale;
+  transition: 300ms cubic-bezier(0.075, 0.82, 0.165, 1);
 }
 
 .character_item:hover {
   color: rgb(98, 98, 98);
+  transform: scale(1.02);
 }
 
 .character_img {
   width: 100%;
   margin-bottom: 5px;
+  border-radius: 5px;
 }
 
 @media screen and (min-width: 768px) {
   .character_item {
     width: calc(50% - 10px);
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  .character_item{
+    width: 500px;
+    height: 700px;
   }
 }
