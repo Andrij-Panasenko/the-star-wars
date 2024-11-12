@@ -7,6 +7,7 @@ import { useEffect } from 'react';
 import { useAppDispatch } from '../../hooks/useAppDispatch';
 import { fetchAllCharacters } from '../../redux/operations';
 import { setPage } from '../../redux/characterSlice';
+import Button from 'components/Button/Button';
 
 export default function MainPage() {
     const dispatch = useAppDispatch();
@@ -31,24 +32,20 @@ export default function MainPage() {
             </ul>
             <div className={style.load_btn__wrapper}>
                 {previous && (
-                    <button
+                    <Button
                         type="button"
-                        className={style.load_btn}
                         onClick={() => dispatch(setPage(page - 1))}
                     >
-                        <span className={style.load_btn__text}>
-                            Previous page
-                        </span>
-                    </button>
+                        Previous page
+                    </Button>
                 )}
                 {next && (
-                    <button
+                    <Button
                         type="button"
-                        className={style.load_btn}
                         onClick={() => dispatch(setPage(page + 1))}
                     >
-                        <span className={style.load_btn__text}>Next page</span>
-                    </button>
+                        Next page
+                    </Button>
                 )}
             </div>
         </>

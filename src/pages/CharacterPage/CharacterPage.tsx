@@ -116,3 +116,37 @@ export default function CharacterPage() {
     );
 }
 
+// useEffect(() => {
+//     const fetchData = async () => {
+//         try {
+//             setIsLoading(true); // початок запитів
+
+//             // Перевірка та завантаження фільмів
+//             if (films.length >= 1) {
+//                 await films.reduce(async (previousPromise, filmID) => {
+//                     await previousPromise;
+//                     return dispatch(fetchFilmDetailById(filmID));
+//                 }, Promise.resolve());
+//             }
+
+//             // Перевірка та завантаження зорельотів
+//             if (starships.length >= 1) {
+//                 await starships.reduce(async (previousPromise, starshipID) => {
+//                     await previousPromise;
+//                     return dispatch(fetchStarshipDetailById(starshipID));
+//                 }, Promise.resolve());
+//             }
+//         } catch (error) {
+//             console.log('Помилка у fetchData:', error);
+//         } finally {
+//             setIsLoading(false); // завершення всіх запитів
+//         }
+//     };
+
+//     fetchData();
+
+//     // очищення стану лише після повного завершення компонента
+//     return () => {
+//         dispatch(clearFilmsAndStarshipsDetails());
+//     };
+// }, [dispatch, films, starships]);
