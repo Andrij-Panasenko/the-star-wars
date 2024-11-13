@@ -10,7 +10,11 @@ export const fetchAllCharacters = createAsyncThunk(
   'characters/fetch',
   async (page: number = 1, thunkAPI) => {
     try {
-       const response = await axios.get(`/people?page=${page}`)
+      const response = await axios.get('/people', {
+        params: {
+          page: page
+        }
+       })
     return response.data
     } catch (error) {
       toast.error('Unable to load page. Try again later');
