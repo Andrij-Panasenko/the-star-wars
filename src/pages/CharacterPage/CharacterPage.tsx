@@ -16,6 +16,7 @@ import {
     selectStarshipDetails,
 } from '../../redux/selectors';
 import { clearFilmsAndStarshipsDetails } from '../../redux/characterSlice';
+import GenerateNodesAndEdges from '../../generateNodesAndEdges';
 
 export default function CharacterPage() {
     const dispatch = useAppDispatch();
@@ -23,6 +24,7 @@ export default function CharacterPage() {
     const characterData = useSelector(selectCharacterDetails);
     const filmsData = useSelector(selectFilmDetails);
     const starshipsData = useSelector(selectStarshipDetails);
+    const { nodes, edges } = GenerateNodesAndEdges({characterData, filmsData, starshipsData});
 
     const { films = [], starships = [] } = characterData || {}; // getting arrays with id of films and starships from charaster details
 
@@ -54,59 +56,12 @@ export default function CharacterPage() {
         };
     }, [dispatch, films.length, starships.length]);
 
-    //chacter node
-    const characterNode = {
-        id: characterData?.id.toString() || 'unknown-id',
-        position: { x: 550, y: 0 },
-        data: { label: characterData?.name || 'Unknown Character' },
-    };
-
-    //transform films and starships details into array to pass necesary details to ReactFlow
-    const filmNodes = filmsData.map((film, idx) => {
-        return {
-            id: film.id.toString(),
-            position: { x: idx * 180, y: 250 },
-            data: { label: film.title },
-        };
-    });
-
-    const starshipNodes = starshipsData.map((starship, idx) => {
-        return {
-            id: starship.id.toString(),
-            position: { x: idx * 180, y: 500 },
-            data: { label: starship.model },
-        };
-    });
-
-    //making edges to connect character node with films
-    const filmEdges = filmsData.map((film) => {
-        return {
-            id: `char-to-film-${film.id}`,
-            source: characterNode.id,
-            target: film.id.toString(),
-            label: 'film',
-        };
-    });
-
-    //edges from films to starships
-    const starshipEdges = starshipsData.map((starship) => {
-        return {
-            id: `film-to-starship-${starship.id}`,
-            source:
-                filmsData
-                    .find((film) => film.starships.includes(starship.id))
-                    ?.id.toString() || '',
-            target: starship.id.toString(),
-            label: 'starship',
-        };
-    });
-
     return (
         <>
             <div className={style.character_page}>
                 <ReactFlow
-                    nodes={[characterNode, ...filmNodes, ...starshipNodes]}
-                    edges={[...filmEdges, ...starshipEdges]}
+                    nodes={nodes}
+                    edges={edges}
                 >
                     <Background />
                     <Controls />
