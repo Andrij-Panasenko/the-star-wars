@@ -1,5 +1,5 @@
 import { useAppDispatch } from '../../hooks/useAppDispatch';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import {
     fetchCharacterById,
@@ -21,12 +21,20 @@ import GenerateNodesAndEdges from '../../generateNodesAndEdges';
 export default function CharacterPage() {
     const dispatch = useAppDispatch();
     const param = useParams<{ characterID: string }>();
+    const [isLoading, setIsLoading] = useState<boolean>(false);
     const characterData = useSelector(selectCharacterDetails);
     const filmsData = useSelector(selectFilmDetails);
     const starshipsData = useSelector(selectStarshipDetails);
-    const { nodes, edges } = GenerateNodesAndEdges({characterData, filmsData, starshipsData});
+    const { nodes, edges } = GenerateNodesAndEdges({
+        characterData,
+        filmsData,
+        starshipsData,
+    });
 
     const { films = [], starships = [] } = characterData || {}; // getting arrays with id of films and starships from charaster details
+
+    console.log('🚀 ~ CharacterPage ~ starships:', starships);
+    console.log('🚀 ~ CharacterPage ~ films:', films);
 
     useEffect(() => {
         dispatch(fetchCharacterById(Number(param.characterID)));
@@ -34,18 +42,21 @@ export default function CharacterPage() {
 
     useEffect(() => {
         const fetchData = async () => {
-            // implementation of sequential query
+            // paralel requests
+            try {
+                setIsLoading(true);
+                const filmPromises = films.map((filmID) =>
+                    dispatch(fetchFilmDetailById(filmID))
+                );
 
-            if (films.length >= 1) {
-                for (const filmID of films) {
-                    await dispatch(fetchFilmDetailById(filmID));
-                }
-            }
+                const starshipPromises = starships.map((starshipID) =>
+                    dispatch(fetchStarshipDetailById(starshipID))
+                );
 
-            if (starships.length >= 1) {
-                for (const starshipID of starships) {
-                    await dispatch(fetchStarshipDetailById(starshipID));
-                }
+                await Promise.all([...filmPromises, ...starshipPromises]);
+                setIsLoading(false);
+            } catch (error) {
+                console.log('🚀 ~ fetchData ~ error:', error);
             }
         };
         fetchData();
@@ -58,16 +69,17 @@ export default function CharacterPage() {
 
     return (
         <>
-            <div className={style.character_page}>
-                <ReactFlow
-                    nodes={nodes}
-                    edges={edges}
-                >
-                    <Background />
-                    <Controls />
-                </ReactFlow>
-            </div>
+            {isLoading && (
+                <div className={style.loading_container}>Loading page</div>
+            )}
+            {!isLoading && (
+                <div className={style.character_page}>
+                    {/* <ReactFlow nodes={nodes} edges={edges}>
+                        <Background />
+                        <Controls />
+                    </ReactFlow> */}
+                </div>
+            )}
         </>
     );
 }
-
